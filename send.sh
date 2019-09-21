@@ -23,7 +23,7 @@ case $1 in
 
   * )
     STATUS_MESSAGE="Status Unknown"
-g    EMBED_COLOR=0
+    EMBED_COLOR=0
     ;;
 esac
 
