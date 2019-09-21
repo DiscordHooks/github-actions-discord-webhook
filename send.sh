@@ -47,7 +47,7 @@ fi
 TIMESTAMP=$(date --utc +%FT%TZ)
 WEBHOOK_DATA='{
   "username": "",
-  "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+  "avatar_url": "https://avatars0.githubusercontent.com/u/44036562?s=200",
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {
