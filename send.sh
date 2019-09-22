@@ -34,8 +34,11 @@ COMMITTER_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%cN")"
 COMMIT_SUBJECT="$(git log -1 "$GITHUB_SHA" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "$GITHUB_SHA" --pretty="%b")" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
 COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
-BRANCH_NAME="$(echo $GITHUB_REF | sed 's/^.*\/.*\///g')"
 BRANCH_URL="https://github.com/$GITHUB_REPOSITORY/tree/$BRANCH_NAME"
+
+# If, for example, $GITHUB_REF = refs/heads/feature/example-branch
+# Then this sed command returns: feature/example-branch
+BRANCH_NAME="$(echo $GITHUB_REF | sed 's/^.*\/.*\///g')"
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
