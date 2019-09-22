@@ -64,7 +64,7 @@ WEBHOOK_DATA='{
     "fields": [
       {
         "name": "Commit",
-        "value": "'"[\`${GITHUB_SHA:0:7}\`]"'",
+        "value": "'"[\`${GITHUB_SHA:0:7}\`](${COMMIT_URL})"'",
         "inline": true
       }
     ],
