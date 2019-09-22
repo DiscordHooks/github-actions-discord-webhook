@@ -8,7 +8,7 @@ fi
 
 echo -e "[Webhook]: Sending webhook to Discord...\\n";
 
-AVATAR=https://github.githubassets.com/images/modules/logos_page/Octocat.png
+AVATAR="https://avatars0.githubusercontent.com/u/44036562?s=200"
 
 case $1 in
   "Success" )
@@ -47,7 +47,7 @@ fi
 TIMESTAMP=$(date --utc +%FT%TZ)
 WEBHOOK_DATA='{
   "username": "",
-  "avatar_url": "https://avatars0.githubusercontent.com/u/44036562?s=200",
+  "avatar_url": "'$AVATAR'",
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {
