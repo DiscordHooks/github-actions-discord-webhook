@@ -2,7 +2,7 @@
 ## Setup
 1. In Github secrets, add a `WEBHOOK_URL` variable with the Discord web hook URL
 1. In your Github actions yml file, add this to reference the variable you just created:
-    - To see a real example, visit [here](https://github.com/unthreaded/git-hooks/blob/b77767d81bc979af69902c5fe75cc625476cc6b0/.github/workflows/build.yml). 
+    - To see a real example, visit [here](https://github.com/unthreaded/git-hooks/blob/80e914105c0a9d94282f8f1b0a1b39ea8d59dc33/.github/workflows/build.yml#L36). 
     ```yaml
         - name: Send Webhook Notification
           if: always()
