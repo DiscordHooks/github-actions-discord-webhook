@@ -1,7 +1,9 @@
 #!/bin/bash
 # This original source of this code: https://github.com/DiscordHooks/travis-ci-discord-webhook
 # The same functionality from TravisCI is needed for Github Actions
-
+#
+# For info on the GITHUB prefixed variables, visit:
+# https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
 if [ -z "$2" ]; then
   echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DiscordHooks/travis-ci-discord-webhook" && exit
 fi
