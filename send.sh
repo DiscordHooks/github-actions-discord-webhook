@@ -37,8 +37,10 @@ COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
 
 # If, for example, $GITHUB_REF = refs/heads/feature/example-branch
 # Then this sed command returns: feature/example-branch
-BRANCH_URL="https://github.com/$GITHUB_REPOSITORY/tree/$BRANCH_NAME"
 BRANCH_NAME="$(echo $GITHUB_REF | sed 's/^[^/]*\/[^/]*\///g')"
+REPO_URL="https://github.com/$GITHUB_REPOSITORY"
+BRANCH_URL="$REPO_URL/tree/$BRANCH_NAME"
+ACTION_URL="$COMMIT_URL/checks"
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
@@ -53,12 +55,12 @@ WEBHOOK_DATA='{
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {
-      "name": "Build '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
-      "url": "'$COMMIT_URL'",
+      "name": "'"$STATUS_MESSAGE"': '"$WORKFLOW_NAME"' ('"${HOOK_OS_NAME}"') - '"$GITHUB_REPOSITORY"'",
+      "url": "'$ACTION_URL'",
       "icon_url": "'$AVATAR'"
     },
     "title": "'"$COMMIT_SUBJECT"'",
-    "url": "'"$URL"'",
+    "url": "'"$COMMIT_URL"'",
     "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
     "fields": [
       {
