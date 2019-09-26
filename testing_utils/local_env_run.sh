@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export GITHUB_SHA="69a3b64e5b36db68b54ca7291d8acfde261dda76"
+# Enter your url.....don't commit this
+export DISCORD_URL=""
+export GITHUB_REPOSITORY="DiscordHooks/github-actions-discord-webhook"
+export GITHUB_REF="refs/heads/feature/example-branch"
+export HOOK_OS_NAME="Windows"
+export WORKFLOW_NAME="Main Pipeline"
+./send.sh Success $DISCORD_URL
