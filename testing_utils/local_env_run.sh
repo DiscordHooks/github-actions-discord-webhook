@@ -7,4 +7,5 @@ export GITHUB_REPOSITORY="DiscordHooks/github-actions-discord-webhook"
 export GITHUB_REF="refs/heads/feature/example-branch"
 export HOOK_OS_NAME="Windows"
 export WORKFLOW_NAME="Main Pipeline"
+export GITHUB_EVENT_NAME = "pull_request" # Could also be push, ext.
 ./send.sh Success $DISCORD_URL

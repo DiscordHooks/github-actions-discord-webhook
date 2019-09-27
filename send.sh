@@ -39,13 +39,22 @@ COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
 # Then this sed command returns: feature/example-branch
 BRANCH_NAME="$(echo $GITHUB_REF | sed 's/^[^/]*\/[^/]*\///g')"
 REPO_URL="https://github.com/$GITHUB_REPOSITORY"
-BRANCH_URL="$REPO_URL/tree/$BRANCH_NAME"
+BRANCH_OR_PR="Branch"
+BRANCH_OR_PR_URL="$REPO_URL/tree/$BRANCH_NAME"
 ACTION_URL="$COMMIT_URL/checks"
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
 else
   CREDITS="$AUTHOR_NAME authored & $COMMITTER_NAME committed"
+fi
+
+if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+	BRANCH_OR_PR="Pull Request"
+	
+	PR_NUM=$(echo $BRANCH_NAME | sed 's/^\([0-9]\+\).*/\1/g')
+	BRANCH_OR_PR_URL="$REPO_URL/pull/$PR_NUM"
+	BRANCH_NAME="#${PR_NUM}"
 fi
 
 TIMESTAMP=$(date --utc +%FT%TZ)
@@ -69,8 +78,8 @@ WEBHOOK_DATA='{
         "inline": true
       },
       {
-        "name": "Branch",
-        "value": "'"[\`${BRANCH_NAME}\`](${BRANCH_URL})"'",
+        "name": "'"$BRANCH_OR_PR"'",
+        "value": "'"[\`${BRANCH_NAME}\`](${BRANCH_OR_PR_URL})"'",
         "inline": true
       }
     ],
