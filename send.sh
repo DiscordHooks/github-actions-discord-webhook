@@ -57,24 +57,15 @@ if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	BRANCH_NAME="#${PR_NUM}"
 	
 	# Call to GitHub API to get PR title
-	PULL_REQUEST_JSON=$(curl -f -s https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM)
+	PULL_REQUEST_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM"
 	
-	echo A $PULL_REQUEST_JSON
+	WORK_DIR=$(dirname ${BASH_SOURCE[0]})
+	
+	echo Checking for ruby....
 	which ruby
+	PULL_REQUEST_TITLE=$(ruby $WORK_DIR/get_pull_request_title.rb $PULL_REQUEST_ENDPOINT)
 	
-	# Filter PR JSON to get title
-	PULL_REQUEST_JSON=$(echo $PULL_REQUEST_JSON | egrep 'title.:')
-	
-	echo B $PULL_REQUEST_JSON
-	
-	# Left trim title
-	PULL_REQUEST_TITLE=$(echo $PULL_REQUEST_JSON | sed 's/.*: \"//g')
-	
-	echo C $PULL_REQUEST_TITLE
-	
-	# Right trim title
-	PULL_REQUEST_TITLE=$(echo $PULL_REQUEST_TITLE | sed 's/\".*$//g')
-	
+	echo ${BASH_SOURCE[0]}
 	echo D $PULL_REQUEST_TITLE
 	
 	COMMIT_SUBJECT=$PULL_REQUEST_TITLE
