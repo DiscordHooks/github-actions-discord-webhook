@@ -52,7 +52,7 @@ fi
 if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	BRANCH_OR_PR="Pull Request"
 	
-	PR_NUM=$(echo $BRANCH_NAME | sed 's/^\([0-9]\+\).*/\1/g')
+	PR_NUM=$(sed 's/\/.*//g' <<< $BRANCH_NAME)
 	BRANCH_OR_PR_URL="$REPO_URL/pull/$PR_NUM"
 	BRANCH_NAME="#${PR_NUM}"
 	
