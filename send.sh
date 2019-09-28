@@ -57,7 +57,7 @@ if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	BRANCH_NAME="#${PR_NUM}"
 fi
 
-TIMESTAMP=$(date --utc +%FT%TZ)
+TIMESTAMP=$(date -u +%FT%TZ)
 WEBHOOK_DATA='{
   "username": "",
   "avatar_url": "'$AVATAR'",
