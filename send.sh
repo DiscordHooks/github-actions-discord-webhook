@@ -57,7 +57,7 @@ if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	BRANCH_NAME="#${PR_NUM}"
 	
 	# Call to GitHub API to get PR title
-	PULL_REQUEST_JSON=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM)
+	PULL_REQUEST_JSON=$(curl -f -s https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM)
 	PULL_REQUEST_TITLE=$(egrep \"title\" <<< $PULL_REQUEST_JSON | sed 's/.*": \"\(.*\)\".*/\1/g')
 	
 	COMMIT_SUBJECT=$PULL_REQUEST_TITLE
