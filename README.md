@@ -9,6 +9,8 @@
           env:
             JOB_STATUS: ${{ job.status }}
             WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+			HOOK_OS_NAME: ${{ runner.os }}
+			WORKFLOW_NAME: ${{ github.workflow }}
           run: |
             wget https://raw.githubusercontent.com/DiscordHooks/github-actions-discord-webhook/master/send.sh
             chmod +x send.sh

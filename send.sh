@@ -42,7 +42,7 @@ REPO_URL="https://github.com/$GITHUB_REPOSITORY"
 BRANCH_OR_PR="Branch"
 BRANCH_OR_PR_URL="$REPO_URL/tree/$BRANCH_NAME"
 ACTION_URL="$COMMIT_URL/checks"
-
+COMMIT_OR_PR_URL=$COMMIT_SUBJECT
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
 else
@@ -55,6 +55,15 @@ if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	PR_NUM=$(echo $BRANCH_NAME | sed 's/^\([0-9]\+\).*/\1/g')
 	BRANCH_OR_PR_URL="$REPO_URL/pull/$PR_NUM"
 	BRANCH_NAME="#${PR_NUM}"
+	
+	# Call to GitHub API to get PR title
+	PULL_REQUEST_JSON=$(curl -s https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM)
+	PULL_REQUEST_TITLE=$(egrep \"title\" <<< $PULL_REQUEST_JSON | sed 's/.*": \"\(.*\)\".*/\1/g')
+	
+	COMMIT_SUBJECT=$PULL_REQUEST_TITLE
+	COMMIT_MESSAGE="Pull Request #$PR_NUM"
+	ACTION_URL="$BRANCH_OR_PR_URL/checks"
+	COMMIT_OR_PR_URL=$BRANCH_OR_PR_URL
 fi
 
 TIMESTAMP=$(date -u +%FT%TZ)
@@ -69,7 +78,7 @@ WEBHOOK_DATA='{
       "icon_url": "'$AVATAR'"
     },
     "title": "'"$COMMIT_SUBJECT"'",
-    "url": "'"$COMMIT_URL"'",
+    "url": "'"$COMMIT_OR_PR_URL"'",
     "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
     "fields": [
       {
