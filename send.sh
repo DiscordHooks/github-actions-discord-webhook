@@ -60,13 +60,7 @@ if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
 	PULL_REQUEST_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUM"
 	
 	WORK_DIR=$(dirname ${BASH_SOURCE[0]})
-	
-	echo Checking for ruby....
-	which ruby
 	PULL_REQUEST_TITLE=$(ruby $WORK_DIR/get_pull_request_title.rb $PULL_REQUEST_ENDPOINT)
-	
-	echo ${BASH_SOURCE[0]}
-	echo D $PULL_REQUEST_TITLE
 	
 	COMMIT_SUBJECT=$PULL_REQUEST_TITLE
 	COMMIT_MESSAGE="Pull Request #$PR_NUM"
