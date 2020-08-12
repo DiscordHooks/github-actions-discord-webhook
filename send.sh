@@ -12,13 +12,13 @@ echo -e "[Webhook]: Sending webhook to Discord...\\n";
 
 AVATAR="https://github.com/actions.png"
 
-case $1 in
-  "Success" )
+case ${1,,} in
+  "success" )
     EMBED_COLOR=3066993
     STATUS_MESSAGE="Passed"
     ;;
 
-  "Failure" )
+  "failure" )
     EMBED_COLOR=15158332
     STATUS_MESSAGE="Failed"
     ;;
