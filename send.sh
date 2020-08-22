@@ -12,6 +12,7 @@ echo -e "[Webhook]: Sending webhook to Discord...\\n";
 
 AVATAR="https://github.com/actions.png"
 
+# More info: https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 case ${1,,} in
   "success" )
     EMBED_COLOR=3066993
