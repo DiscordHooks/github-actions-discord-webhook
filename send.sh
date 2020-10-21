@@ -4,11 +4,6 @@
 #
 # For info on the GITHUB prefixed variables, visit:
 # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
-if [ -z "$2" ]; then
-  echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DiscordHooks/github-actions-discord-webhook" && exit
-fi
-
-echo -e "[Webhook]: Sending webhook to Discord...\\n";
 
 AVATAR="https://github.com/actions.png"
 
@@ -29,6 +24,12 @@ case ${1,,} in
     EMBED_COLOR=0
     ;;
 esac
+
+shift
+
+if [ $# -lt 1 ]; then
+  echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DiscordHooks/github-actions-discord-webhook" && exit
+fi
 
 AUTHOR_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%aN")"
 COMMITTER_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%cN")"
@@ -99,5 +100,9 @@ WEBHOOK_DATA='{
   } ]
 }'
 
-(curl --fail --progress-bar -A "GitHub-Actions-Webhook" -H Content-Type:application/json -H X-Author:k3rn31p4nic#8383 -d "${WEBHOOK_DATA//	/ }" "$2" \
+for ARG in "$@"; do
+  echo -e "[Webhook]: Sending webhook to Discord...\\n";
+
+  (curl --fail --progress-bar -A "GitHub-Actions-Webhook" -H Content-Type:application/json -H X-Author:k3rn31p4nic#8383 -d "${WEBHOOK_DATA//	/ }" "$ARG" \
   && echo -e "\\n[Webhook]: Successfully sent the webhook.") || echo -e "\\n[Webhook]: Unable to send webhook."
+done
