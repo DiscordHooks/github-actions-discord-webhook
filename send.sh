@@ -72,7 +72,6 @@ fi
 
 TIMESTAMP=$(date -u +%FT%TZ)
 WEBHOOK_DATA='{
-  "username": "",
   "avatar_url": "'$AVATAR'",
   "embeds": [ {
     "color": '$EMBED_COLOR',
