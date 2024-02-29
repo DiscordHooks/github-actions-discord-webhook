@@ -40,7 +40,7 @@ COMMIT_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
 # If, for example, $GITHUB_REF = refs/heads/feature/example-branch
 # Then this sed command returns: feature/example-branch
 BRANCH_NAME="$(echo $GITHUB_REF | sed 's/^[^/]*\/[^/]*\///g')"
-REPO_URL="https://github.com/$GITHUB_REPOSITORY"
+REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
 BRANCH_OR_PR="Branch"
 BRANCH_OR_PR_URL="$REPO_URL/tree/$BRANCH_NAME"
 ACTION_URL="$COMMIT_URL/checks"
